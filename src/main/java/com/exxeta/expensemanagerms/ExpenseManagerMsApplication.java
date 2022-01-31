@@ -3,7 +3,7 @@ package com.exxeta.expensemanagerms;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.exxeta")
 public class ExpenseManagerMsApplication {
 
 	public static void main(String[] args) {
