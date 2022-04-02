@@ -35,7 +35,7 @@ public class ExpenseController {
         saveAllNewExpenses(expensesFromFrontend);
         for (ExpenseFromFrontend expense: expensesFromFrontend) {
             final TransferDto transferDto = new TransferDto(userId, accountName, BigDecimal.valueOf(expense.price));
-            expenseKafkaService.sendKafkaMessage(transferDto);
+//            expenseKafkaService.sendKafkaMessage(transferDto);
         }
         return mapper.writeValueAsString(expensesFromFrontend);
     }
