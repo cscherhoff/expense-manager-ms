@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expense-db
+spec:
+  selector:
+    matchLabels:
+      app: expense-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: expense-db
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: expense-db
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_PASSWORD
+          value: Test12345
+        - name: MYSQL_DATABASE
+          value: expense_ms_test
+        ports:
+        - containerPort: 3306
+          name: expense-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: expense-db
+spec:
+  type: NodePort
+  ports:
+  - port: 3307
+    nodePort: 30009
+    targetPort: 3306
+  selector:
+    app: expense-db

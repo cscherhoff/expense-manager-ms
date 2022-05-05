@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expense-service
+spec:
+  selector:
+    matchLabels:
+      app: expense-service
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: expense-service
+    spec:
+      containers:
+      - image: fragg90/expense_service:1.0.0
+        name: expense-service
+        env:
+        - name: spring.datasource.url
+          value: jdbc:mysql://expense-db:3307/expense_ms_test?characterEncoding=utf8&serverTimezone=CET&createDatabaseIfNotExist=true
+        - name: spring.datasource.username
+          value: root
+        - name: spring.datasource.password
+          value: root
+        - name: spring.kafka.consumer.bootstrap-servers
+          value: kafka:29092
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://eureka:8762/eureka
+        ports:
+        - containerPort: 8066
+          name: exp-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: expservice
+spec:
+  type: NodePort
+  ports:
+  - port: 3317
+    nodePort: 30018
+    targetPort: 8083
+  selector:
+    app: expense-service
