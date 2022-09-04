@@ -14,7 +14,7 @@ spec:
         app: expense-service
     spec:
       containers:
-      - image: fragg90/expense_service:1.0.0
+      - image: fragg90/expense_service:1.1.0
         name: expense-service
         env:
         - name: spring.datasource.url
@@ -24,7 +24,7 @@ spec:
         - name: spring.datasource.password
           value: root
         - name: spring.kafka.consumer.bootstrap-servers
-          value: kafka:29092
+          value: kafkacont:29092
         - name: eureka.client.serviceUrl.defaultZone
           value: http://eureka:8762/eureka
         ports:
@@ -40,6 +40,6 @@ spec:
   ports:
   - port: 3317
     nodePort: 30018
-    targetPort: 8083
+    targetPort: 30018
   selector:
     app: expense-service
