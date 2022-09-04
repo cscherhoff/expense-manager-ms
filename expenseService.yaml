@@ -27,6 +27,8 @@ spec:
           value: kafkacont:29092
         - name: eureka.client.serviceUrl.defaultZone
           value: http://eureka:8762/eureka
+        - name: eureka.instance.prefer-ip-address
+          value: "true"
         ports:
         - containerPort: 8066
           name: exp-service
