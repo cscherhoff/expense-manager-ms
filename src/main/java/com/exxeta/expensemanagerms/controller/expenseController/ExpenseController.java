@@ -28,7 +28,7 @@ public class ExpenseController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/accountName/{accountName}")
-    public String postNewExpenses(@PathVariable long userId, @PathVariable String accountName,
+    public String postNewExpenses(@PathVariable String userId, @PathVariable String accountName,
                                  @RequestBody List<ExpenseFromFrontend> expensesFromFrontend) throws IOException {
 
         expensesFromFrontend.forEach(expense -> expense.setUserId(userId));
@@ -49,7 +49,7 @@ public class ExpenseController {
     }
 
     @GetMapping
-    public String getAllExpenses(@PathVariable long userId) {
+    public String getAllExpenses(@PathVariable String userId) {
         try {
             return mapper.writeValueAsString(expenseService.getAllExpenses(userId));
         } catch (Exception exception) {

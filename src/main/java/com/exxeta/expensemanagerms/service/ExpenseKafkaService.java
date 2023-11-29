@@ -34,13 +34,13 @@ public class ExpenseKafkaService {
         logger.info("Received message: " + cr.value() + " with the key " + cr.key());
         try {
             final CategoryKafkaDto[] categoryKafkaDtos = objectMapper.readValue(cr.value(), CategoryKafkaDto[].class);
-            categoryService.updateBudgetForCategories(mapCategories(Long.parseLong(cr.key()), categoryKafkaDtos));
+            categoryService.updateBudgetForCategories(mapCategories(cr.key(), categoryKafkaDtos));
         } catch (JsonProcessingException jsonProcessingException) {
             logger.error("Could not parse json from the kafka message: " + cr.value());
         }
     }
 
-    private Collection<Category> mapCategories(long userId, CategoryKafkaDto[] categoryKafkaDtos) {
+    private Collection<Category> mapCategories(String userId, CategoryKafkaDto[] categoryKafkaDtos) {
         List<Category> categoryList = new ArrayList<>();
         for (CategoryKafkaDto categoryKafkaDto: categoryKafkaDtos) {
             categoryList.add(

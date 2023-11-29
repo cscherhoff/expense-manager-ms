@@ -22,7 +22,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public String getAllCategories(@PathVariable long userId) {
+    public String getAllCategories(@PathVariable String userId) {
         try {
             return mapper.writeValueAsString(categoryService.getAllCategories(userId));
         } catch (Exception exception) {
