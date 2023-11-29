@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class ExpenseKafkaService {
         this.categoryService = categoryService;
     }
 
-    @KafkaListener(topics = "allocation", groupId = "expense-manager")
+    @KafkaListener(topics = "allocation", groupId = "expense-manager",autoStartup = "${listen.auto.start:true}")
     public void consumeMessage(ConsumerRecord<String, String> cr) {
         logger.info("Received message: " + cr.value() + " with the key " + cr.key());
         try {
