@@ -1,4 +1,4 @@
-FROM openjdk:12
+FROM openjdk:17
 ADD target/expense-manager-ms-0.0.1-SNAPSHOT.jar expense-manager-ms-0.0.1-SNAPSHOT.jar
 RUN mkdir export
 RUN mkdir properties
